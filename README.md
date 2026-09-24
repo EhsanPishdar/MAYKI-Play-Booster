@@ -1,39 +1,61 @@
-⚡ MAYKI PLAY BOOSTER
-🚀 Overview
-MAYKI PLAY BOOSTER is a smart, user-friendly bash script designed for Termux users to optimize their Android device for PUBG Mobile. It helps free up RAM, clear deep cache and junk files, force-stop background resource-hogging apps, and apply high-FPS config tweaks without needing root access.
+مجموعه کامل و نهایی MAYKI MULTI-GAME PRO BOOSTER (همراه با قابلیت‌های چندبازی، کانفیگ‌های پیشرفته و تست پینگ) آماده‌ی استفاده روی ترموکس (Termux) و لینوکس است.
 
-✨ Features
-🎯 Multi-Version Support: Easily select and optimize for Global (com.tencent.ig), Korea (com.pubg.krmobile), or Vietnam (com.vng.pubgmobile) versions.
+در ادامه، توضیحات کامل و دستورات نصب و راه‌اندازی برای قرار دادن در گیت‌هاب (فایل README.md) یا استفاده‌ی سریع آماده شده است:
 
-🧹 Deep Cache & Junk Cleaning: Automatically wipes game cache, error logs, Unreal Engine crash reports, and temporary files.
+⚡ MAYKI MULTI-GAME PRO BOOSTER
+🚀 درباره اسکریپت
+اسکریپت MAYKI PRO BOOSTER یک ابزار هوشمند بر پایه Bash است که به شما اجازه می‌دهد بدون نیاز به روت کردن دستگاه، حافظه رم را آزاد کنید، برنامه‌های پس‌زمینه را متوقف سازید، کش و لاگ‌های اضافی بازی‌ها را پاکسازی کنید و کانفیگ‌های گرافیکی و فریم‌ریت اختصاصی (تا 120FPS) را برای بازی‌های محبوب موبایل اعمال کنید.
 
-🧠 RAM & App Booster: Trims memory usage and force-stops heavy background apps (Chrome, Facebook, YouTube, Instagram, etc.) to free up hardware resources.
+✨ قابلیت‌ها و ویژگی‌های کلیدی
+🎯 پشتیبانی از چندین بازی محبوب:
 
-⚙️ 120FPS Config Unlocker: Generates and applies performance configurations (GameUserSettings.ini) to force high frame rates.
+PUBG Mobile (نسخه‌های Global, Korea, Vietnam)
 
-🌐 Network Ping Test: Built-in network check tool to test your ping against fast DNS servers (1.1.1.1) before jumping into a match.
+Call of Duty: Mobile (CODM)
 
-🎨 Pro UI/UX: Clean, colorful, and modern terminal interface with status banners and easy-to-use menu navigation.
+Free Fire
 
-📥 Installation & Usage
-Open your Termux app and run the following commands:
+Delta Force Mobile
 
-# Update packages and install git (if not already installed)
-pkg update && pkg install git -y
+⚙️ ساخت کانفیگ اختصاصی و پیشرفته (Dedicated Configs):
 
-# Clone the repository (or copy the script)
-git clone https://github.com/YOUR_USERNAME/MAYKI-Play-Booster.git
+اعمال تنظیمات حرفه‌ای پابجی (فعال‌سازی 120FPS، غیرفعال‌سازی افکت‌های سنگین، کاهش کیفیت سایه‌ها به صفر برای حذف لگ).
+
+ساخت فایل‌های عملکردی و بهینه‌سازی رندرینگ برای کالاف دیوتی، فری‌فایر و دلتا فورس.
+
+🧹 پاکسازی عمیق کش و فایل‌های موقت: حذف خودکار فایل‌های کش، لاگ‌ها و گزارش‌های خطای موتور بازی (Unreal Engine و غیره) بدون آسیب به فایل‌های اصلی.
+
+🧠 تقویت رم و بستن برنامه‌های پس‌زمینه: بستن اجباری برنامه‌های پرمصرف (مثل کروم، اینستاگرام، یوتیوب و فیسبوک) برای تمرکز حداکثری سخت‌افزار روی بازی.
+
+🌐 تست پینگ شبکه: ابزار داخلی بررسی کیفیت اتصال به اینترنت و پینگ با سرورهای سریع (1.1.1.1) پیش از ورود به بازی.
+
+📋 پیش‌نیازها (Prerequisites)
+پیش از نصب، مطمئن شوید ابزارهای زیر در ترموکس یا لینوکس شما نصب هستند:
+
+Git (برای دانلود پروژه)
+
+Inetutils / Ping (برای تست شبکه)
+
+📥 دستورات نصب و راه‌اندازی سریع
+برنامه Termux یا ترمینال خود را باز کرده و دستورات زیر را به ترتیب اجرا کنید:
+
+Bash
+# ۱. بروزرسانی پکیج‌ها و نصب پیش‌نیازها
+pkg update && pkg install git inetutils -y
+
+# ۲. کلون کردن مخزن از گیت‌هاب
+git clone https://github.com/EHsanPishdar/MAYKI-Play-Booster.git
+
+# ۳. ورود به پوشه پروژه
 cd MAYKI-Play-Booster
 
-# Give execution permission to the script
-chmod +x booster.sh
+# ۴. دادن دسترسی اجرایی به فایل اسکریپت
+chmod +x Pubg_Booster
 
-# Run the script
-./booster.sh
+# ۵. اجرای برنامه
+./Pubg_Booster
+📢 ارتباط با ما
+کانال تلگرام: MAYKI_1_SHOP_PUBG
 
-
-📢 Connect With Us
-Telegram Channel: MAYKI_1_SHOP_PUBG
-
-⚠️ Disclaimer
-This script is designed for performance optimization and educational purposes. It operates in non-root mode using standard Termux and Android intent commands. Use at your own discretion.
+⚠️ سلب مسئولیت
+این ابزار صرفاً برای بهینه‌سازی عملکرد سخت‌افزاری، آزادسازی رم و اهداف آموزشی در حالت غیرروت طراحی شده است. استفاده از آن به عهده‌ی کاربر می‌باشد.
