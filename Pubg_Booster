@@ -1,6 +1,6 @@
 #!/bin/bash
-# MAYKI PLAY BOOSTER — PUBG PRO BOOSTER (Non-root, Optimized)
-# Version: 1.3
+# MAYKI PLAY BOOSTER — ULTIMATE MULTI-GAME PRO BOOSTER (Non-root)
+# Version: 2.1
 # Creator: Ehsan
 
 CHANNEL_LINK="https://t.me/MAYKI_1_SHOP_PUBG"
@@ -9,6 +9,7 @@ CHANNEL_LINK="https://t.me/MAYKI_1_SHOP_PUBG"
 GREEN="\e[1;32m"
 DARK_GREEN="\e[0;32m"
 YELLOW="\e[1;33m"
+CYAN="\e[1;36m"
 RED="\e[1;31m"
 NC="\e[0m"
 
@@ -18,62 +19,127 @@ info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 show_header() {
   clear
   echo -e "${DARK_GREEN}================================================${NC}"
-  echo -e "${GREEN}      ⚡ M A Y K I   P L A Y   B O O S T E R  ⚡${NC}"
+  echo -e "${GREEN}  ⚡ M A Y K I   M U L T I - C O N F I G   ⚡${NC}"
   echo -e "${DARK_GREEN}================================================${NC}"
-  echo -e "${YELLOW}  Creator:${NC} Ehsan  |  ${YELLOW}Version:${NC} 1.3 (Pro UI)"
+  echo -e "${YELLOW}  Creator:${NC} Ehsan  |  ${YELLOW}Version:${NC} 2.1 (Dedicated Configs)"
   echo -e "${DARK_GREEN}------------------------------------------------${NC}"
   echo
 }
 
-select_version() {
+select_game() {
   show_header
-  echo -e "${YELLOW}Select PUBG Version:${NC}"
-  echo -e "${GREEN}1)${NC} Global (com.tencent.ig)"
-  echo -e "${GREEN}2)${NC} Korea (com.pubg.krmobile)"
-  echo -e "${GREEN}3)${NC} Vietnam (com.vng.pubgmobile)"
+  echo -e "${YELLOW}Select Target Game for Dedicated Boost & Config:${NC}"
+  echo -e "${GREEN}1)${NC} PUBG Mobile (Global / KR / VN)"
+  echo -e "${GREEN}2)${NC} Call of Duty: Mobile (CODM)"
+  echo -e "${GREEN}3)${NC} Free Fire"
+  echo -e "${GREEN}4)${NC} Delta Force Mobile"
+  echo -e "${GREEN}5)${NC} Return to Main Menu"
   echo
-  read -p "Select [1-3, default 1]> " ver_sel
-  case "$ver_sel" in
-    2) GAME_PACKAGE="com.pubg.krmobile";;
-    3) GAME_PACKAGE="com.vng.pubgmobile";;
-    *) GAME_PACKAGE="com.tencent.ig";;
+  read -p "Select game [1-5]> " game_sel
+  
+  case "$game_sel" in
+    1)
+      echo
+      echo -e "${CYAN}--- PUBG Mobile Versions ---${NC}"
+      echo "1) Global (com.tencent.ig)"
+      echo "2) Korea (com.pubg.krmobile)"
+      echo "3) Vietnam (com.vng.pubgmobile)"
+      read -p "Select PUBG version [1-3, default 1]> " pubg_ver
+      case "$pubg_ver" in
+        2) GAME_PACKAGE="com.pubg.krmobile";;
+        3) GAME_PACKAGE="com.vng.pubgmobile";;
+        *) GAME_PACKAGE="com.tencent.ig";;
+      esac
+      GAME_NAME="PUBG Mobile"
+      run_game_boost
+      ;;
+    2)
+      GAME_PACKAGE="com.activision.callofduty.shooter"
+      GAME_NAME="Call of Duty: Mobile"
+      run_game_boost
+      ;;
+    3)
+      GAME_PACKAGE="com.dts.freefireth"
+      GAME_NAME="Free Fire"
+      run_game_boost
+      ;;
+    4)
+      GAME_PACKAGE="com.tencent.deltaforce"
+      GAME_NAME="Delta Force Mobile"
+      run_game_boost
+      ;;
+    5)
+      return
+      ;;
+    *)
+      info "Invalid option."
+      pause 1
+      select_game
+      ;;
   esac
 }
 
-military_boost() {
-  select_version
+run_game_boost() {
   show_header
-  info "Activating Mayki Boost for $GAME_PACKAGE..."
+  info "Activating Dedicated Boost for $GAME_NAME..."
   pause 0.3
 
   info "Step 1: Soft RAM trim..."
-  am send-trim-memory com.termux 80 >/dev/null 2>&1 || true
+  command -v am >/dev/null 2>&1 && am send-trim-memory com.termux 80 >/dev/null 2>&1 || true
   pause 0.2
 
-  info "Step 2: Closing background apps..."
+  info "Step 2: Closing heavy background apps..."
   for app in com.android.chrome com.facebook.katana com.youtube.android com.instagram.android; do
-    am force-stop $app >/dev/null 2>&1 || true
+    command -v am >/dev/null 2>&1 && am force-stop $app >/dev/null 2>&1 || true
   done
   pause 0.2
 
-  info "Step 3: Deep Cache & Junk Cleaning..."
+  info "Step 3: Deep Cache & Junk Cleaning for $GAME_NAME..."
   rm -rf /sdcard/Android/data/${GAME_PACKAGE}/cache/* 2>/dev/null || true
+  rm -rf /sdcard/Android/data/${GAME_PACKAGE}/files/Temp/* 2>/dev/null || true
   rm -rf /sdcard/Android/data/${GAME_PACKAGE}/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/Logs/* 2>/dev/null || true
   rm -rf /sdcard/Android/data/${GAME_PACKAGE}/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/Crashes/* 2>/dev/null || true
-  rm -rf /sdcard/Android/data/${GAME_PACKAGE}/files/Temp/* 2>/dev/null || true
   pause 0.2
 
-  info "Step 4: Applying 120FPS & Performance Config..."
-  CONFIG_DIR="/sdcard/Android/data/${GAME_PACKAGE}/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/Config/Android"
-  mkdir -p "$CONFIG_DIR" 2>/dev/null || true
+  info "Step 4: Applying Dedicated High-FPS & Performance Config..."
   
-  echo "[/Script/Engine.RendererSettings]" > "$CONFIG_DIR/GameUserSettings.ini" 2>/dev/null || true
-  echo "bUse120FPS=True" >> "$CONFIG_DIR/GameUserSettings.ini" 2>/dev/null || true
-  echo "bSmoothFrameRate=True" >> "$CONFIG_DIR/GameUserSettings.ini" 2>/dev/null || true
-  pause 0.2
+  # کانفیگ اختصاصی بر اساس بازی انتخاب شده
+  case "$GAME_PACKAGE" in
+    com.tencent.ig|com.pubg.krmobile|com.vng.pubgmobile)
+      CONFIG_DIR="/sdcard/Android/data/${GAME_PACKAGE}/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/Config/Android"
+      mkdir -p "$CONFIG_DIR" 2>/dev/null || true
+      echo "[/Script/Engine.RendererSettings]" > "$CONFIG_DIR/GameUserSettings.ini" 2>/dev/null || true
+      echo "bUse120FPS=True" >> "$CONFIG_DIR/GameUserSettings.ini" 2>/dev/null || true
+      echo "bSmoothFrameRate=True" >> "$CONFIG_DIR/GameUserSettings.ini" 2>/dev/null || true
+      info "Applied PUBG 120FPS Config."
+      ;;
+    
+    com.activision.callofduty.shooter)
+      CONFIG_DIR="/sdcard/Android/data/${GAME_PACKAGE}/files/UE4Game/ClientConfig"
+      mkdir -p "$CONFIG_DIR" 2>/dev/null || true
+      echo "MaxFPS=120" > "$CONFIG_DIR/codm_perf.txt" 2>/dev/null || true
+      echo "GraphicsQuality=Low" >> "$CONFIG_DIR/codm_perf.txt" 2>/dev/null || true
+      info "Applied CODM Dedicated Performance Config."
+      ;;
+    
+    com.dts.freefireth)
+      CONFIG_DIR="/sdcard/Android/data/${GAME_PACKAGE}/files/contentcache"
+      mkdir -p "$CONFIG_DIR" 2>/dev/null || true
+      echo "FPS_TARGET=High" > "$CONFIG_DIR/ff_boost.cfg" 2>/dev/null || true
+      info "Applied Free Fire Dedicated Boost Config."
+      ;;
+    
+    com.tencent.deltaforce)
+      CONFIG_DIR="/sdcard/Android/data/${GAME_Package}/files/Engine/Config"
+      mkdir -p "$CONFIG_DIR" 2>/dev/null || true
+      echo "bEnableHighFPS=True" > "$CONFIG_DIR/DeltaSettings.ini" 2>/dev/null || true
+      info "Applied Delta Force Dedicated Performance Config."
+      ;;
+  esac
 
-  info "Mayki Boost Applied Successfully!"
-  pause 0.5
+  pause 0.2
+  info "$GAME_NAME Boost & Config Applied Successfully!"
+  pause 0.6
 }
 
 network_test() {
@@ -87,24 +153,24 @@ network_test() {
 open_telegram() {
   show_header
   info "Opening Telegram Channel..."
-  am start -a android.intent.action.VIEW -d "$CHANNEL_LINK" >/dev/null 2>&1 || true
+  command -v am >/dev/null 2>&1 && am start -a android.intent.action.VIEW -d "$CHANNEL_LINK" >/dev/null 2>&1 || echo -e "${YELLOW}Link: $CHANNEL_LINK${NC}"
   pause 0.5
 }
 
 menu() {
   while true; do
     show_header
-    echo -e "${GREEN} [1]${NC} 🚀 Mayki Boost (PUBG Optimizer)"
+    echo -e "${GREEN} [1]${NC} 🚀 Multi-Game Booster & Dedicated Config"
     echo -e "${GREEN} [2]${NC} 🌐 Network Ping Test / Internet Booster"
     echo -e "${GREEN} [3]${NC} 📢 Open Official Telegram Channel"
     echo -e "${GREEN} [4]${NC} ❌ Exit Script"
     echo
     read -p " Select option [1-4]: " sel
     case "$sel" in
-      1) military_boost;;
+      1) select_game;;
       2) network_test;;
       3) open_telegram;;
-      4) clear; echo -e "${RED}[!] Exiting... Good luck in the match!${NC}"; sleep 0.4; exit 0;;
+      4) clear; echo -e "${RED}[!] Exiting... Good luck in your matches!${NC}"; sleep 0.4; exit 0;;
       *) echo -e "${RED}[X] Invalid option, try again.${NC}"; sleep 0.6;;
     esac
     read -p "Press Enter to continue..."
