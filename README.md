@@ -18,7 +18,6 @@ MAYKI PLAY BOOSTER is a smart, user-friendly bash script designed for Termux use
 📥 Installation & Usage
 Open your Termux app and run the following commands:
 
-Bash
 # Update packages and install git (if not already installed)
 pkg update && pkg install git -y
 
@@ -31,6 +30,8 @@ chmod +x booster.sh
 
 # Run the script
 ./booster.sh
+
+
 📢 Connect With Us
 Telegram Channel: MAYKI_1_SHOP_PUBG
 
